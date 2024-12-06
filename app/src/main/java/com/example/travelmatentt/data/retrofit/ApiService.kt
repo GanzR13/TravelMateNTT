@@ -5,7 +5,6 @@ import com.example.travelmatentt.data.request.RegisterRequest
 import com.example.travelmatentt.data.response.LoginResponse
 import com.example.travelmatentt.data.response.RegisterResponse
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -19,5 +18,5 @@ interface ApiService {
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
-    
+
 }
