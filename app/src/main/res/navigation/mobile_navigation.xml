@@ -4,18 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
-
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.travelmatentt.fragment.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_maps"
-        android:name="com.example.travelmatentt.fragment.MapsFragment"
-        android:label="Maps"
-        tools:layout="@layout/fragment_maps" />
 
     <fragment
         android:id="@+id/navigation_story"
@@ -28,5 +21,9 @@
         android:name="com.example.travelmatentt.fragment.WishlistFragment"
         android:label="Wishlist"
         tools:layout="@layout/fragment_wishlist" />
+    <activity
+        android:id="@+id/mapsActivity2"
+        android:name="com.example.travelmatentt.Maps.MapsActivity"
+        android:label="MapsActivity" />
 
 </navigation>

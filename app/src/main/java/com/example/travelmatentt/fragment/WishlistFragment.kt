@@ -1,11 +1,15 @@
 package com.example.travelmatentt.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.example.travelmatentt.Detail.Detail
 import com.example.travelmatentt.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,9 +38,24 @@ class WishlistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wishlist, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_wishlist, container, false)
+
+        val cardItem1: LinearLayout = view.findViewById(R.id.cardItem1)
+        val cardItem2: LinearLayout = view.findViewById(R.id.cardItem2)
+        val cards = arrayOf(cardItem1, cardItem2)
+
+        cards.forEachIndexed { index, card ->
+            card.setOnClickListener {
+                val intent = Intent(activity, Detail::class.java)
+                intent.putExtra("card_id", index)
+                startActivity(intent)
+            }
+        }
+
+        return view
     }
+
 
     companion object {
         /**
@@ -58,3 +77,4 @@ class WishlistFragment : Fragment() {
             }
     }
 }
+
