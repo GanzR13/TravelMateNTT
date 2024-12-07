@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.travelmatentt.Maps.MapsActivity
 import com.example.travelmatentt.R
-import com.example.travelmatentt.fragment.StoryFragment
+
 
 class Detail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
