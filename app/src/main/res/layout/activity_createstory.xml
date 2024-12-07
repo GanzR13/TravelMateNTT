@@ -8,7 +8,7 @@
     android:background="#F5F5F5"
     tools:context=".fragment.Createstory">
 
-    <!-- Tombol Back -->
+
     <ImageButton
         android:id="@+id/ic_back"
         android:layout_width="40dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Judul Create Story -->
+
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Placeholder Gambar -->
+
     <View
         android:id="@+id/imagePlaceholder"
         android:layout_width="0dp"
@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="@id/imagePlaceholder"
         app:layout_constraintTop_toTopOf="@id/imagePlaceholder" />
 
-    <!-- Deskripsi -->
+
     <EditText
         android:id="@+id/descriptionField"
         android:layout_width="0dp"
@@ -114,7 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/locationField" />
 
-    <!-- Tombol Story -->
+
     <Button
         android:id="@+id/storyButton"
         android:layout_width="0dp"

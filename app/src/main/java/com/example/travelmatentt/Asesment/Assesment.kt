@@ -17,7 +17,6 @@ class Assesment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_assesment)
 
-
         val touristAttractions = listOf(
             "Air Terjun", "Batu Karang", "Bukit", "Danau", "Desa Wisata",
             "Goa", "Gunung", "Pantai", "Pulau", "Sungai", "Taman",

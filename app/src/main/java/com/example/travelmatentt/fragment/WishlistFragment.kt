@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.example.travelmatentt.Detail.Detail
 import com.example.travelmatentt.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

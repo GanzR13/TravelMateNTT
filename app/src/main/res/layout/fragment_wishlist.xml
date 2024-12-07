@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header Title -->
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
@@ -23,7 +23,6 @@
             android:gravity="center"
             android:layout_marginBottom="16dp" />
 
-        <!-- Search Bar -->
         <LinearLayout
             android:layout_width="244dp"
             android:layout_height="wrap_content"
@@ -53,9 +52,7 @@
                 android:src="@drawable/ic_search" />
         </LinearLayout>
 
-        <!-- Profile Picture -->
 
-        <!-- Content Items -->
         <ImageView
             android:id="@+id/imgProfile"
             android:layout_width="48dp"
@@ -74,7 +71,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp">
 
-            <!-- Item 1 -->
+
             <LinearLayout
                 android:id="@+id/cardItem1"
                 android:layout_width="0dp"
@@ -117,7 +114,7 @@
                     android:src="@drawable/ic_heart" />
             </LinearLayout>
 
-            <!-- Item 2 -->
+
             <LinearLayout
                 android:id="@+id/cardItem2"
                 android:layout_width="0dp"
@@ -162,7 +159,7 @@
 
         </GridLayout>
 
-        <!-- Tempat untuk menampilkan Fragment -->
+
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"

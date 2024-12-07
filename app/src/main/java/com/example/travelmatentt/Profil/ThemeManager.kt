@@ -20,3 +20,4 @@ class ThemeManager(context: Context) {
         return preferences.getString("theme", THEME_LIGHT) ?: THEME_LIGHT
     }
 }
+

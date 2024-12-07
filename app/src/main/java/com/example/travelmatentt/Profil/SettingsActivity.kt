@@ -31,9 +31,9 @@ class SettingsActivity : AppCompatActivity() {
         backButton = findViewById(R.id.arrow_back_button)
         profileText = findViewById(R.id.profile_name)
         nama = findViewById(R.id.nama)
-        changePasswordLayout = findViewById(R.id.ll_change_password) // Inisialisasi layout untuk "Ubah Password"
+        changePasswordLayout = findViewById(R.id.ll_change_password)
 
-        // Apply theme
+
         applyTheme(themeManager.getTheme())
 
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -41,21 +41,19 @@ class SettingsActivity : AppCompatActivity() {
             applyTheme(themeManager.getTheme())
         }
 
-        // Back button listener
+
         backButton.setOnClickListener {
-            finish() // Kembali ke activity sebelumnya
+            finish()
         }
 
-        // Profile name click listener
         profileText.setOnClickListener {
             val intent = Intent(this, ChangePasswordActivity::class.java)
             startActivity(intent)
         }
 
-        // Change password menu listener
         changePasswordLayout.setOnClickListener {
             val intent = Intent(this, ChangePasswordActivity::class.java)
-            startActivity(intent) // Berpindah ke halaman ChangePasswordActivity
+            startActivity(intent)
         }
 
     }

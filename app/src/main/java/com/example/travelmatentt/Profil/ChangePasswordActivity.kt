@@ -34,17 +34,16 @@ class ChangePasswordActivity : AppCompatActivity() {
         backButton = findViewById(R.id.arrow_back_button)
         titleText = findViewById(R.id.title_change_password)
 
-        // Apply theme
+
         applyTheme(themeManager.getTheme())
 
-        // Back button listener
         backButton.setOnClickListener {
-            finish()  // Kembali ke activity sebelumnya
+            finish()
         }
 
-        // Save button listener
+
         saveButton.setOnClickListener {
-            // Save password logic here
+
         }
     }
 

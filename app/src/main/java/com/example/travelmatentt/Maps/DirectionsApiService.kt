@@ -6,6 +6,7 @@ import retrofit2.http.Query
 
 interface DirectionsApiService {
 
+
     @GET("directions/json")
     suspend fun getRoute(
         @Query("origin") origin: String,

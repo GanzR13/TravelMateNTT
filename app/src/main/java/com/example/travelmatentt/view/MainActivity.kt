@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("NavController", "NavController: $navController")
     }
 
+
     // Optional: Tambahkan fungsi navigasi
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()

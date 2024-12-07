@@ -15,7 +15,7 @@
     <color name="dark_background">#000000</color>
     <color name="light_text">#000000</color>
     <color name="dark_text">#FFFFFF</color>
-    <color name="colorPrimary">#6200EE</color> <!-- Warna utama -->
+    <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color> <!-- Warna gelap utama -->
     <color name="colorAccent">#03DAC5</color> <!-- Warna aksen -->
     <color name="colorPrimaryBlack">#121212</color>

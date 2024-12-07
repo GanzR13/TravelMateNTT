@@ -81,7 +81,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        // Set default location and marker
+
         val defaultLocation = LatLng(-6.4025, 106.7942) // Example: Depok, Margonda
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15f))
         map.addMarker(MarkerOptions().position(defaultLocation).title("Default Location"))
@@ -93,7 +93,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.modeStatus.text = "Mode: Gas Ke Tujuan"
                 binding.modeStatus.setBackgroundColor(getColor(R.color.green))
 
-                // Logic for "Gas Ke Tujuan" mode
+
                 Toast.makeText(this, "Navigasi dimulai menuju tujuan.", Toast.LENGTH_SHORT).show()
                 searchLocation()
             }

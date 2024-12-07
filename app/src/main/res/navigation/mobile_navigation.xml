@@ -16,6 +16,7 @@
         android:label="Story"
         tools:layout="@layout/fragment_story" />
 
+
     <fragment
         android:id="@+id/navigation_wishlist"
         android:name="com.example.travelmatentt.fragment.WishlistFragment"
