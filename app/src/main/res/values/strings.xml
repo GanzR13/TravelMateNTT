@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Travel Mate NTT</string>
+    <string name="welcome_to_travel_mate">Welcome to Travel Mate</string>
+    <string name="daftar">Daftar</string>
+    <string name="masuk">Masuk</string>
+    <string name="siap_memulai_perjalanan">Siap memulai perjalanan?</string>
+    <string name="login">Login</string>
+    <string name="belum_memiliki_akun">Belum memiliki akun?</string>
+    <string name="register">Register</string>
+    <string name="ayo_mulai_perjalananmu">Ayo mulai perjalananmu</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="empty_name">Empty name</string>
+    <string name="name_too_short">Name to short</string>
+    <string name="minimum_characters">Minimum character</string>
+    <string name="travel_mate_ntt">Travel Mate NTT</string>
+    <string name="or_login_with">Or Login with</string>
+    <string name="log_in_with_google">Login with Google</string>
+    <string name="username">Username</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="sudah_memiliki_akun">Sudah memiliki akun ?</string>
+    <string name="register_with_google">Register with Google</string>
+    <string name="or_register_with">Or Register with</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
+    <string name="story">Story</string>
+    <string name="wishlist">Wishlist</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="destinasi">Destinasi</string>
+    <string name="direction">Direction</string>
+</resources>

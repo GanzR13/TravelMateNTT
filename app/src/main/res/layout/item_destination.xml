@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="2dp"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/itemDestination">
+
+    <ImageView
+        android:id="@+id/imgDestination"
+        android:layout_width="410dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="65dp" >
+
+        <TextView
+            android:id="@+id/tvItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Nama Destinasi"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_location"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/location_24dp"
+            app:layout_constraintStart_toStartOf="@+id/tvItemTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemTitle" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/img_location"
+            app:layout_constraintTop_toTopOf="@+id/img_location"
+            tools:text="5 km" />
+
+        <TextView
+            android:id="@+id/tvRatingScore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:text="4.7"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="305dp"
+            app:layout_constraintStart_toStartOf="@id/tvCity"
+            app:layout_constraintTop_toTopOf="@id/tvCity"
+            app:layout_constraintBottom_toBottomOf="@id/tvCity"
+            />
+
+        <ImageView
+            android:id="@+id/tvStar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/star_24dp"
+            android:backgroundTint="@color/yellow"
+            android:layout_marginStart="330dp"
+            app:layout_constraintStart_toStartOf="@id/tvCity"
+            app:layout_constraintTop_toTopOf="@id/tvCity"
+            app:layout_constraintBottom_toBottomOf="@id/tvCity"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
