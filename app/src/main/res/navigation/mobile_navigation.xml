@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_story"
-        android:name="com.example.travelmatentt.fragment.StoryFragment"
-        android:label="Story"
-        tools:layout="@layout/fragment_story" />
-
-    <fragment
         android:id="@+id/navigation_wishlist"
         android:name="com.example.travelmatentt.fragment.WishlistFragment"
         android:label="Wishlist"

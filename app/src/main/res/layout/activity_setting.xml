@@ -6,23 +6,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.setting.SettingActivity">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="145dp"
-        android:src="@drawable/travel_mate_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner.Full" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/travel_mate_logo"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner.Full" />
 
     <TextView
         android:id="@+id/tvEditProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         android:textColor="@color/green"
         android:gravity="center"
         android:textSize="20sp"
@@ -35,8 +38,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/green"
         tools:text="Hi, Hazard"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/tvEditProfile"/>
 
@@ -44,8 +47,8 @@
         android:id="@+id/btnInfoAccount"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_btn_google"
         app:layout_constraintTop_toBottomOf="@+id/tvUsernameProfile"/>
@@ -76,7 +79,7 @@
         android:id="@+id/logoArrowRight"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="255dp"
+        android:layout_marginStart="250dp"
         android:background="@drawable/arrow_right_24dp"
         app:layout_constraintStart_toStartOf="@id/btnInfoAccount"
         app:layout_constraintTop_toTopOf="@id/btnInfoAccount"
@@ -87,8 +90,8 @@
         android:id="@+id/btnDarkMode"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_btn_google"
         app:layout_constraintTop_toBottomOf="@+id/btnInfoAccount"/>
@@ -129,8 +132,8 @@
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_btn_google"
         app:layout_constraintTop_toBottomOf="@+id/btnDarkMode"/>

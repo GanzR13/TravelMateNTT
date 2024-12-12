@@ -5,10 +5,7 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/home_24dp"
         android:title="@string/home" />
-    <item
-        android:id="@+id/navigation_story"
-        android:icon="@drawable/story_24dp"
-        android:title="@string/story" />
+    
     <item
         android:id="@+id/navigation_wishlist"
         android:icon="@drawable/wishlist_24dp"

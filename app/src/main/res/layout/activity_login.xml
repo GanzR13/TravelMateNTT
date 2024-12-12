@@ -109,84 +109,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/custom_btn_filter"
+        android:background="@drawable/custom_btn"
         android:contentDescription="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
-    <TextView
-        android:id="@+id/tvOrGoogle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
-        android:text="@string/or_login_with"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <ImageView
-        android:id="@+id/imgOrGoogle1"
-        android:layout_width="86dp"
-        android:layout_height="7dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/img_or_left"
-        android:contentDescription="@string/login"
-        app:layout_constraintStart_toStartOf="@id/tvOrGoogle"
-        app:layout_constraintTop_toTopOf="@id/tvOrGoogle"
-        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle" />
-
-
-    <ImageView
-        android:id="@+id/imgOrGoogle2"
-        android:layout_width="86dp"
-        android:layout_height="7dp"
-        android:layout_marginStart="245dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/img_or_right"
-        android:contentDescription="@string/login"
-        app:layout_constraintStart_toStartOf="@id/tvOrGoogle"
-        app:layout_constraintTop_toTopOf="@id/tvOrGoogle"
-        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle" />
-
-    <ImageButton
-        android:id="@+id/btnGoogleLogin"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="130dp"
-        android:background="@drawable/custom_btn_google"
-        android:contentDescription="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrGoogle" />
-
-    <ImageView
-        android:id="@+id/logoGoogle"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/logo_google"
-        app:layout_constraintStart_toStartOf="@id/btnGoogleLogin"
-        app:layout_constraintTop_toTopOf="@id/btnGoogleLogin"
-        app:layout_constraintBottom_toBottomOf="@id/btnGoogleLogin" />
-
-    <TextView
-        android:id="@+id/tvGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="3dp"
-        android:textSize="13sp"
-        android:text="@string/log_in_with_google"
-        app:layout_constraintStart_toStartOf="@id/btnGoogleLogin"
-        app:layout_constraintTop_toTopOf="@id/btnGoogleLogin"
-        app:layout_constraintBottom_toBottomOf="@id/btnGoogleLogin" />
 
     <TextView
         android:id="@+id/tvInfoRegister"
@@ -229,12 +157,13 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
