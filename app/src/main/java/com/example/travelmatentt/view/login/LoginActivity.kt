@@ -11,10 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.travelmatentt.data.request.LoginRequest
 import com.example.travelmatentt.data.retrofit.ApiConfig
 import com.example.travelmatentt.databinding.ActivityLoginBinding
+import com.example.travelmatentt.view.assessment.AssessmentActivity
 import com.example.travelmatentt.view.main.MainActivity
 import com.example.travelmatentt.view.register.RegisterActivity
 import com.example.travelmatentt.view.welcome.WelcomeActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -48,18 +51,43 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
         binding.btnLogin.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-
                 loginUser(email, password)
             } else {
                 Toast.makeText(this, "Please enter your credentials", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.btnGoogleLogin.setOnClickListener {
+            googleLogin()
+        }
     }
+
+    private fun googleLogin() {
+        lifecycleScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    ApiConfig.getApiService().googleLogin().execute()
+                }
+
+                if (response.isSuccessful) {
+                    Toast.makeText(this@LoginActivity, "Google login successful: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(this@LoginActivity, "Google login failed", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 
     private fun loginUser(email: String, password: String) {
         lifecycleScope.launch {
@@ -75,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
 
                     response.refreshToken?.let { saveTokens(response.accessToken, it) }
 
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, AssessmentActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
@@ -110,3 +138,4 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 }
+

@@ -1,14 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.StoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/storyImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/travel_mate_logo"
+        android:layout_margin="16dp"
+        />
+
+
+    <TextView
+        android:id="@+id/storyContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="Story content"
+        android:textSize="16sp"
+        android:padding="16dp"
+        android:textColor="@android:color/black" />
+
+
+    <RatingBar
+        android:id="@+id/storyRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="0.5" />
+
+    <TextView
+        android:id="@+id/storyDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="360dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="16dp"
+        android:text="Created At"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray" />
+
+
+    <TextView
+        android:id="@+id/storyLikes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="16dp"
+        android:text="Likes"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:id="@+id/storyUpdateDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="440dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="16dp"
+        android:text="Updated At"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray" />
+
+
+    <TextView
+        android:id="@+id/storyLikedBy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="16dp"
+        android:text="Liked By"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/fabCreateStory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_add" />
+</RelativeLayout>

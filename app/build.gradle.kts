@@ -1,7 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id ("com.android.application")
+    id ("kotlin-android")
+    id ("kotlin-kapt")  // Menambahkan plugin kapt
 }
 
 android {
@@ -30,20 +30,26 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
+        dataBinding = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -52,7 +58,21 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.firebase:firebase-storage:21.0.1")  // Pastikan versinya sesuai dengan yang terbaru
+    implementation("com.google.firebase:firebase-auth:21.0.1")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.moshi:moshi:1.13.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.vertexai)
+    implementation(libs.play.services.location)  // Glide untuk memuat gambar
+    kapt("com.github.bumptech.glide:compiler:4.15.1")  // Gunakan kapt untuk Kotlin
+    implementation("com.google.android.material:material:1.8.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,5 +99,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
+    implementation ("androidx.cardview:cardview:1.0.0")
     implementation(libs.androidx.datastore.preferences)
 }

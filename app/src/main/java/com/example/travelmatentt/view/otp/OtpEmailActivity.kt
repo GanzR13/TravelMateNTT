@@ -29,9 +29,6 @@ class OtpEmailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp_email)
 
-        //firebaseAuth = FirebaseAuth.getInstance()
-        //firestore = FirebaseFirestore.getInstance()
-
         email = intent.getStringExtra("email") ?: ""
 
         otpEditText = findViewById(R.id.otpEditText)

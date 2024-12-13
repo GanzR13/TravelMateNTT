@@ -79,7 +79,7 @@
                 android:background="@drawable/custom_btn_filter"
                 android:gravity="center"
                 android:padding="8dp"
-                tools:text="Filter 1"
+                android:text="Filter 1"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -91,7 +91,7 @@
                 android:background="@drawable/custom_btn_filter"
                 android:gravity="center"
                 android:padding="8dp"
-                tools:text="Filter 2"
+                android:text="Filter 2"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -103,7 +103,7 @@
                 android:background="@drawable/custom_btn_filter"
                 android:gravity="center"
                 android:padding="8dp"
-                tools:text="Filter 3"
+                android:text="Filter 3"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -115,7 +115,7 @@
                 android:background="@drawable/custom_btn_filter"
                 android:gravity="center"
                 android:padding="8dp"
-                tools:text="Filter 4"
+                android:text="Filter 4"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -135,12 +135,14 @@
         app:layout_constraintTop_toBottomOf="@id/horizontalScroll" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRecommendations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintStart_toStartOf="@id/tvDestinasi"
-        app:layout_constraintTop_toBottomOf="@id/tvDestinasi" />
+        android:layout_marginTop="256dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
