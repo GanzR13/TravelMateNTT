@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.travelmatentt.R
+import com.example.travelmatentt.data.response.UserResponse
+import com.example.travelmatentt.data.retrofit.ApiService
 import com.example.travelmatentt.databinding.ActivitySettingBinding
 import com.example.travelmatentt.view.infoaccount.InfoAccountActivity
 import com.example.travelmatentt.view.login.LoginActivity
@@ -21,12 +23,19 @@ import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingBinding
     private lateinit var settingViewModel: SettingViewModel
+    private val apiService: ApiService by lazy { createApiService() }
 
     private val cropImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -39,7 +48,6 @@ class SettingActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         binding = ActivitySettingBinding.inflate(layoutInflater)
@@ -48,21 +56,66 @@ class SettingActivity : AppCompatActivity() {
         settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
 
         val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString("username", "Username Tidak Ditemukan")
+        val token = sharedPreferences.getString("access_token", null)
 
-        val greeting = getString(R.string.hi_rizki, username)
-        binding.tvUsernameProfile.text = greeting
+        if (!token.isNullOrEmpty()) {
+            fetchUserInfo(token)
+        } else {
+            binding.tvUsernameProfile.text = getString(R.string.username_not_found)
+        }
 
         displayProfileImage()
-
         loadThemePreference()
-
         setupClickListener()
+    }
+
+
+
+    private fun fetchUserInfo(token: String) {
+        showLoading(true)
+        apiService.getUser("Bearer $token").enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                showLoading(false)
+                if (response.isSuccessful) {
+                    val user = response.body()?.user
+                    if (user != null) {
+                        val greeting = getString(R.string.hi_rizki, user.username)
+                        binding.tvUsernameProfile.text = greeting
+                    } else {
+                        binding.tvUsernameProfile.text = getString(R.string.username_not_found)
+                    }
+                } else {
+                    showError("Gagal memuat informasi pengguna: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                showLoading(false)
+                showError("Error: ${t.localizedMessage}")
+            }
+        })
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun createApiService(): ApiService {
+        val okHttpClient = OkHttpClient.Builder().build()
+        return Retrofit.Builder()
+            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
     }
 
     private fun setupClickListener() {
         binding.tvEditProfile.setOnClickListener {
-            // Start the image picker
             openImagePicker()
         }
 
@@ -114,9 +167,7 @@ class SettingActivity : AppCompatActivity() {
         updateDarkModeToggleState()
     }
 
-
     private fun openImagePicker() {
-        // Open image picker
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
         cropImageLauncher.launch(intent)
@@ -129,23 +180,6 @@ class SettingActivity : AppCompatActivity() {
             .withAspectRatio(1f, 1f) // You can change aspect ratio
             .withMaxResultSize(500, 500) // Set max image size
             .start(this)
-    }
-
-    private fun displayProfileImage() {
-        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        val uriString = sharedPreferences.getString("profile_image_uri", null)
-        uriString?.let {
-            val uri = Uri.parse(it)
-            binding.profileImageView.setImageURI(uri)
-        }
-    }
-
-    private fun logoutUser() {
-        settingViewModel.clearSession()
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
     }
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
@@ -202,5 +236,22 @@ class SettingActivity : AppCompatActivity() {
         editor.apply()
 
         displayProfileImage()
+    }
+
+    private fun displayProfileImage() {
+        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val uriString = sharedPreferences.getString("profile_image_uri", null)
+        uriString?.let {
+            val uri = Uri.parse(it)
+            binding.profileImageView.setImageURI(uri)
+        }
+    }
+
+    private fun logoutUser() {
+        settingViewModel.clearSession()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }

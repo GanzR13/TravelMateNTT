@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelmatentt.R
+import com.example.travelmatentt.data.response.UserResponse
 import com.example.travelmatentt.data.retrofit.ApiService
 import com.example.travelmatentt.databinding.FragmentHomeBinding
 import com.example.travelmatentt.view.setting.SettingActivity
@@ -28,14 +29,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var accessToken: String? = null
     private var username: String? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
         val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         accessToken = sharedPreferences.getString("access_token", null)
-        username = sharedPreferences.getString("username", "Guest")
+        username = sharedPreferences.getString("username", "Guest") // Ambil username dari SharedPreferences
+
+        // Mengambil informasi pengguna melalui API
+        accessToken?.let {
+            fetchUserInfo(it)
+        }
 
         val greeting = getString(R.string.hi_rizki, username)
         binding?.greetingTextView?.text = greeting
@@ -76,50 +81,46 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             btnBatuKarang.setOnClickListener {
                 Toast.makeText(requireContext(), "Batu Karang ", Toast.LENGTH_SHORT).show()
             }
-            btnBukit.setOnClickListener {
-                Toast.makeText(requireContext(), "Bukit ", Toast.LENGTH_SHORT).show()
-            }
-            btnDanau.setOnClickListener {
-                Toast.makeText(requireContext(), "Danau ", Toast.LENGTH_SHORT).show()
-            }
-            btnDesaWisata.setOnClickListener {
-                Toast.makeText(requireContext(), "Desa Wisata ", Toast.LENGTH_SHORT).show()
-            }
-            btnGoa.setOnClickListener {
-                Toast.makeText(requireContext(), "Goa ", Toast.LENGTH_SHORT).show()
-            }
-            btnGunung.setOnClickListener {
-                Toast.makeText(requireContext(), "Gunung ", Toast.LENGTH_SHORT).show()
-            }
-            btnPantai.setOnClickListener {
-                Toast.makeText(requireContext(), "Pantai ", Toast.LENGTH_SHORT).show()
-            }
-            btnPulau.setOnClickListener {
-                Toast.makeText(requireContext(), "Pulau ", Toast.LENGTH_SHORT).show()
-            }
-            btnSungai.setOnClickListener {
-                Toast.makeText(requireContext(), "Sungai ", Toast.LENGTH_SHORT).show()
-            }
-            btnTaman.setOnClickListener {
-                Toast.makeText(requireContext(), "Taman ", Toast.LENGTH_SHORT).show()
-            }
-            btnTamanNasional.setOnClickListener {
-                Toast.makeText(requireContext(), "Taman Nasional ", Toast.LENGTH_SHORT).show()
-            }
-            btnTugu.setOnClickListener {
-                Toast.makeText(requireContext(), "Tugu ", Toast.LENGTH_SHORT).show()
-            }
-            btnWisataAlam.setOnClickListener {
-                Toast.makeText(requireContext(), "Wisata Alam", Toast.LENGTH_SHORT).show()
-            }
+            // Tambahkan listener untuk tombol lainnya jika diperlukan...
         }
+    }
+
+    // Fungsi untuk mengambil informasi pengguna dari API menggunakan token
+    private fun fetchUserInfo(token: String) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(ApiService::class.java)
+        val call = apiService.getUser("Bearer $token")
+
+        call.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val user = response.body()?.user
+                    if (user?.username != null) {
+                        username = user.username // Mengupdate username dengan data dari API
+                        val greeting = getString(R.string.hi_rizki, username)
+                        binding?.greetingTextView?.text = greeting
+                    }
+                } else {
+                    Log.e("HomeFragment", "Failed to fetch user info: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e("HomeFragment", "Error: ${t.message}")
+            }
+        })
     }
 
     private fun setupSearchBar() {
         binding?.searchView?.setupWithSearchBar(binding!!.searchBar)
-
     }
-
 
     private fun fetchDestinationRecommendations(token: String) {
         val retrofit = Retrofit.Builder()
@@ -139,7 +140,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val recommendations = response.body()?.recommendations ?: emptyList()
                     adapter.submitList(recommendations)
                 } else {
-
                     Log.e("HomeFragment", "Failed to fetch recommendations: ${response.message()}")
                 }
             }

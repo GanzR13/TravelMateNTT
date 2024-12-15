@@ -73,4 +73,10 @@
     <string name="gallery">Gallery</string>
     <string name="description">Description</string>
     <string name="add_story">Add Story</string>
+    <string name="username_not_found">Hi, Guest</string>
+    <string name="story_content">Story Content</string>
+    <string name="liked_by">Liked By</string>
+    <string name="updated_at">Updated At</string>
+    <string name="likes">Likes</string>
+    <string name="created_at">Created At</string>
 </resources>
