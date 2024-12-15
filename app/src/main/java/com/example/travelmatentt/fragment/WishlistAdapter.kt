@@ -37,9 +37,12 @@ class WishlistAdapter(private val onItemClick: (Destination) -> Unit) :
                         .load(destination.picture_url)
                         .into(binding.ivDestinationImage)
                 } else {
-                    binding.ivDestinationImage.setImageResource(R.drawable.uploadimage) // Ganti dengan gambar placeholder
+                    binding.ivDestinationImage.setImageResource(R.drawable.uploadimage)
                 }
 
+                binding.root.setOnClickListener {
+                    onItemClick(destination)
+                }
 
                 binding.root.setOnClickListener {
                     val context = binding.root.context

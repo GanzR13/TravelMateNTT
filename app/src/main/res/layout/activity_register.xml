@@ -198,23 +198,23 @@
         android:id="@+id/tvRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="135dp"
         android:text="@string/register"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:layout_marginStart="135dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnRegister"
         app:layout_constraintStart_toStartOf="@id/btnRegister"
-        app:layout_constraintTop_toTopOf="@id/btnRegister"
-        app:layout_constraintBottom_toBottomOf="@id/btnRegister" />
+        app:layout_constraintTop_toTopOf="@id/btnRegister" />
 
     <TextView
         android:id="@+id/tvOrGoogle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
         android:text="@string/or_register_with"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
@@ -225,9 +225,9 @@
         android:layout_marginStart="75dp"
         android:background="@drawable/img_or_left"
         android:contentDescription="@string/login"
+        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle"
         app:layout_constraintStart_toStartOf="@id/tvOrGoogle"
-        app:layout_constraintTop_toTopOf="@id/tvOrGoogle"
-        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle" />
+        app:layout_constraintTop_toTopOf="@id/tvOrGoogle" />
 
 
     <ImageView
@@ -237,9 +237,9 @@
         android:layout_marginStart="252dp"
         android:background="@drawable/img_or_right"
         android:contentDescription="@string/login"
+        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle"
         app:layout_constraintStart_toStartOf="@id/tvOrGoogle"
-        app:layout_constraintTop_toTopOf="@id/tvOrGoogle"
-        app:layout_constraintBottom_toBottomOf="@id/tvOrGoogle" />
+        app:layout_constraintTop_toTopOf="@id/tvOrGoogle" />
 
     <ImageButton
         android:id="@+id/btnGoogleRegister"
@@ -261,9 +261,9 @@
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
         android:background="@drawable/logo_google"
+        app:layout_constraintBottom_toBottomOf="@id/btnGoogleRegister"
         app:layout_constraintStart_toStartOf="@id/btnGoogleRegister"
-        app:layout_constraintTop_toTopOf="@id/btnGoogleRegister"
-        app:layout_constraintBottom_toBottomOf="@id/btnGoogleRegister" />
+        app:layout_constraintTop_toTopOf="@id/btnGoogleRegister" />
 
     <TextView
         android:id="@+id/tvGoogle"
@@ -273,9 +273,9 @@
         android:layout_marginBottom="3dp"
         android:text="@string/register_with_google"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnGoogleRegister"
         app:layout_constraintStart_toStartOf="@id/btnGoogleRegister"
-        app:layout_constraintTop_toTopOf="@id/btnGoogleRegister"
-        app:layout_constraintBottom_toBottomOf="@id/btnGoogleRegister" />
+        app:layout_constraintTop_toTopOf="@id/btnGoogleRegister" />
 
     <TextView
         android:id="@+id/tvInfoLogin"
@@ -304,7 +304,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoLogin" />
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -313,7 +312,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

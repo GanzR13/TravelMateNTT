@@ -62,7 +62,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
         Log.d("WishlistFragment", "Access Token: $accessToken")
 
 
-        recyclerView = binding?.recyclerViewWishlist ?: return
+        recyclerView = binding?.recyclerView ?: return
         adapter = WishlistAdapter { destination ->
 
             val context = requireContext()
@@ -101,7 +101,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     Log.d("WishlistFragment", "Response Body: $responseBody") // Log isi response
-                    val wishlistItems = responseBody ?: emptyList()
+                    val wishlistItems = responseBody?.distinctBy { it.id } ?: emptyList()  // Menghilangkan duplikasi berdasarkan id
                     adapter.submitList(wishlistItems)
                     Log.d("WishlistFragment", "Fetched wishlist successfully")
                 } else {
@@ -111,6 +111,7 @@ class WishlistFragment : Fragment(R.layout.fragment_wishlist) {
                     }
                 }
             }
+
 
             override fun onFailure(call: Call<List<WishlistItem>>, t: Throwable) {
                 Log.e("WishlistFragment", "Error: ${t.message}")

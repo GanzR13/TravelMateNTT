@@ -7,14 +7,12 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.travelmatentt.Maps.MapsActivity
 import com.example.travelmatentt.R
 import com.example.travelmatentt.data.retrofit.ApiService
 import com.example.travelmatentt.databinding.ActivityDestinationDetailBinding
 import com.example.travelmatentt.model.WishlistRequest
-import com.example.travelmatentt.model.WishlistResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,13 +44,6 @@ class DestinationDetailActivity : AppCompatActivity() {
 
 
         cardAdapter = CardAdapter(this, destinationCards[0], destinationImages[0])
-        binding.rvHorizontalCards.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHorizontalCards.adapter = cardAdapter
-
-        val recyclerView = binding.rvHorizontalCards
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = CardAdapter(this, destinationCards[0], destinationImages[0])
-        recyclerView.adapter = adapter
 
         binding.btnSiteMap.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
@@ -68,8 +59,6 @@ class DestinationDetailActivity : AppCompatActivity() {
             bundle.putString("access_token", accessToken)
             storyFragment.arguments = bundle
 
-
-            transaction.replace(R.id.fragment_container, storyFragment) // Replace with your fragment container's ID
             transaction.addToBackStack(null) // Optional: add the transaction to the back stack so the user can navigate back
             transaction.commit()
         }
@@ -88,7 +77,7 @@ class DestinationDetailActivity : AppCompatActivity() {
         binding.tvDestinationName.text = namaObjek
         binding.tvDescription.text = deskripsi
         binding.tvAlamat.text = "Alamat: $alamat"
-        binding.tvRating.text = "Rating: $rating"
+        binding.tvRatingScore.text = "Rating: $rating"
         binding.tvEstimasiHargaTiket.text = "Estimasi Harga Tiket: $estimasiHargaTiket"
 
 

@@ -84,9 +84,6 @@ class AssessmentActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-
-
-
         val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         val accessToken = sharedPreferences.getString("access_token", null) ?: ""
         println("Access Token: $accessToken")
@@ -136,13 +133,13 @@ class AssessmentActivity : AppCompatActivity() {
     }
 
 
-    fun createRetrofitInstance(token: String): Retrofit {
+    private fun createRetrofitInstance(token: String): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(token))
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/") // Ganti dengan URL backend Anda
+            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

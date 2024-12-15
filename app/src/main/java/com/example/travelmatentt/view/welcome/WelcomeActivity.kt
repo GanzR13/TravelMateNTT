@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.travelmatentt.R
 import com.example.travelmatentt.databinding.ActivityWelcomeBinding
+import com.example.travelmatentt.view.ViewModelFactory
 import com.example.travelmatentt.view.main.MainActivity
 import com.example.travelmatentt.view.login.LoginActivity
 import com.example.travelmatentt.view.register.RegisterActivity
@@ -15,12 +18,22 @@ import com.example.travelmatentt.view.register.RegisterActivity
 class WelcomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
+    private lateinit var welcomeViewModel: WelcomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory = ViewModelFactory(application)
+        welcomeViewModel = ViewModelProvider(this, factory)[WelcomeViewModel::class.java]
+
+        welcomeViewModel.isUserLoggedIn.observe(this, Observer { isLoggedIn ->
+            if (isLoggedIn) {
+                navigateToMainActivity()
+            }
+        })
 
         binding.btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -49,5 +62,11 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

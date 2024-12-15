@@ -3,10 +3,12 @@ package com.example.travelmatentt.view.login
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.travelmatentt.data.request.LoginRequest
 import com.example.travelmatentt.data.retrofit.ApiConfig
@@ -22,6 +24,7 @@ import kotlinx.coroutines.withContext
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +32,14 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
         setupView()
         setupClickListener()
+        observeViewModel()
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -56,77 +61,30 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
+            if (isValidEmail(email) && password.isNotEmpty()) {
+                binding.progressBar.visibility = View.VISIBLE
+                loginViewModel.loginUser(email, password)
             } else {
-                Toast.makeText(this, "Please enter your credentials", Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.btnGoogleLogin.setOnClickListener {
-            googleLogin()
-        }
-    }
-
-    private fun googleLogin() {
-        lifecycleScope.launch {
-            try {
-
-                val response = withContext(Dispatchers.IO) {
-                    ApiConfig.getApiService().googleLogin().execute()
-                }
-
-                if (response.isSuccessful) {
-                    Toast.makeText(this@LoginActivity, "Google login successful: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
-
-                } else {
-                    Toast.makeText(this@LoginActivity, "Google login failed", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter a valid email and password", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-
-
-    private fun loginUser(email: String, password: String) {
-        lifecycleScope.launch {
-            try {
-
-                val loginRequest = LoginRequest(email, password)
-
-                val response = ApiConfig.getApiService().login(loginRequest)
-
-                if (!response.accessToken.isNullOrEmpty()) {
-                    Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT)
-                        .show()
-
-                    response.refreshToken?.let { saveTokens(response.accessToken, it) }
-
-                    val intent = Intent(this@LoginActivity, AssessmentActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this@LoginActivity,
-                    "An error occurred: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun observeViewModel() {
+        loginViewModel.loginStatus.observe(this) { isLoggedIn ->
+            binding.progressBar.visibility = View.GONE
+            if (isLoggedIn) {
+                val intent = Intent(this, AssessmentActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun saveTokens(accessToken: String, refreshToken: String) {
-
-        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("access_token", accessToken)
-        editor.putString("refresh_token", refreshToken)
-        editor.apply()
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")

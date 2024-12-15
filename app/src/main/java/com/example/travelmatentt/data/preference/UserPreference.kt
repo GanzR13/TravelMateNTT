@@ -10,48 +10,37 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+class UserPreference(context: Context) {
 
-class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
+    private val prefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
-    suspend fun saveSession(user: UserModel) {
-        dataStore.edit { preferences ->
-            preferences[EMAIL_KEY] = user.email
-            preferences[TOKEN_KEY] = user.token
-            preferences[IS_LOGIN_KEY] = true
-        }
+    fun saveUser(user: UserModel) {
+        val editor = prefs.edit()
+        editor.putString("email", user.email)
+        editor.putString("id", user.id)
+        editor.putString("username", user.username)
+        editor.putBoolean("isLogin", user.isLogin)
+        editor.putString("token", user.token)
+        editor.apply()
     }
 
-    fun getSession(): Flow<UserModel> {
-        return dataStore.data.map { preferences ->
-            UserModel(
-                preferences[EMAIL_KEY] ?: "",
-                preferences[TOKEN_KEY] ?: "",
-                preferences[IS_LOGIN_KEY] ?: false
-            )
-        }
+    fun getUser(): UserModel {
+        val email = prefs.getString("email", null)
+        val id = prefs.getString("id", null)
+        val username = prefs.getString("username", "")
+        val isLogin = prefs.getBoolean("isLogin", false)
+        val token = prefs.getString("token", null)
+
+        return UserModel(
+            username = username ?: "",
+            email = email ?: "",
+            id = id ?: "",
+            isLogin = isLogin,
+            token = token
+        )
     }
 
-    suspend fun logout() {
-        dataStore.edit { preferences ->
-            preferences.clear()
-        }
-    }
-
-    companion object {
-        @Volatile
-        private var INSTANCE: UserPreference? = null
-
-        private val EMAIL_KEY = stringPreferencesKey("email")
-        private val TOKEN_KEY = stringPreferencesKey("token")
-        private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
-
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
-            return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
+    fun isUserLoggedIn(): Boolean {
+        return prefs.getBoolean("isLogin", false)
     }
 }

@@ -2,11 +2,10 @@ package com.example.travelmatentt.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +14,6 @@ import com.example.travelmatentt.R
 import com.example.travelmatentt.data.retrofit.ApiService
 import com.example.travelmatentt.databinding.FragmentHomeBinding
 import com.example.travelmatentt.view.setting.SettingActivity
-import com.example.travelmatentt.fragment.RecommendationAdapter
-import com.example.travelmatentt.fragment.RecommendationResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,15 +26,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var recommendationsRecyclerView: RecyclerView
     private lateinit var adapter: RecommendationAdapter
     private var accessToken: String? = null
+    private var username: String? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
-
         val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         accessToken = sharedPreferences.getString("access_token", null)
+        username = sharedPreferences.getString("username", "Guest")
 
+        val greeting = getString(R.string.hi_rizki, username)
+        binding?.greetingTextView?.text = greeting
 
         recommendationsRecyclerView = binding?.recyclerViewRecommendations ?: return
         adapter = RecommendationAdapter { recommendation ->
@@ -55,42 +56,74 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recommendationsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         recommendationsRecyclerView.adapter = adapter
 
-
         accessToken?.let {
             fetchDestinationRecommendations(it)
         }
-
 
         binding?.profileImageView?.setOnClickListener {
             val intent = Intent(requireContext(), SettingActivity::class.java)
             startActivity(intent)
         }
 
+        setupSearchBar()
 
-        binding?.searchBar?.setOnClickListener {
-            Toast.makeText(requireContext(), "Search clicked", Toast.LENGTH_SHORT).show()
-        }
+        displayProfileImage()
 
-
-        binding?.btnFilter?.setOnClickListener {
-            Toast.makeText(requireContext(), "Filter 1 clicked", Toast.LENGTH_SHORT).show()
-        }
-        binding?.btnFilter2?.setOnClickListener {
-            val intent = Intent(requireContext(), Filter2Activity::class.java)
-            startActivity(intent)
-        }
-
-        binding?.btnFilter3?.setOnClickListener {
-            Toast.makeText(requireContext(), "Filter 3 clicked", Toast.LENGTH_SHORT).show()
-        }
-        binding?.btnFilter4?.setOnClickListener {
-            Toast.makeText(requireContext(), "Filter 4 clicked", Toast.LENGTH_SHORT).show()
+        binding?.apply {
+            btnAirTerjun.setOnClickListener {
+                Toast.makeText(requireContext(), "Air Terjun ", Toast.LENGTH_SHORT).show()
+            }
+            btnBatuKarang.setOnClickListener {
+                Toast.makeText(requireContext(), "Batu Karang ", Toast.LENGTH_SHORT).show()
+            }
+            btnBukit.setOnClickListener {
+                Toast.makeText(requireContext(), "Bukit ", Toast.LENGTH_SHORT).show()
+            }
+            btnDanau.setOnClickListener {
+                Toast.makeText(requireContext(), "Danau ", Toast.LENGTH_SHORT).show()
+            }
+            btnDesaWisata.setOnClickListener {
+                Toast.makeText(requireContext(), "Desa Wisata ", Toast.LENGTH_SHORT).show()
+            }
+            btnGoa.setOnClickListener {
+                Toast.makeText(requireContext(), "Goa ", Toast.LENGTH_SHORT).show()
+            }
+            btnGunung.setOnClickListener {
+                Toast.makeText(requireContext(), "Gunung ", Toast.LENGTH_SHORT).show()
+            }
+            btnPantai.setOnClickListener {
+                Toast.makeText(requireContext(), "Pantai ", Toast.LENGTH_SHORT).show()
+            }
+            btnPulau.setOnClickListener {
+                Toast.makeText(requireContext(), "Pulau ", Toast.LENGTH_SHORT).show()
+            }
+            btnSungai.setOnClickListener {
+                Toast.makeText(requireContext(), "Sungai ", Toast.LENGTH_SHORT).show()
+            }
+            btnTaman.setOnClickListener {
+                Toast.makeText(requireContext(), "Taman ", Toast.LENGTH_SHORT).show()
+            }
+            btnTamanNasional.setOnClickListener {
+                Toast.makeText(requireContext(), "Taman Nasional ", Toast.LENGTH_SHORT).show()
+            }
+            btnTugu.setOnClickListener {
+                Toast.makeText(requireContext(), "Tugu ", Toast.LENGTH_SHORT).show()
+            }
+            btnWisataAlam.setOnClickListener {
+                Toast.makeText(requireContext(), "Wisata Alam", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
+    private fun setupSearchBar() {
+        binding?.searchView?.setupWithSearchBar(binding!!.searchBar)
+
+    }
+
+
     private fun fetchDestinationRecommendations(token: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/") // Ganti dengan URL backend Anda
+            .baseUrl("https://travelmate-ntt-1096623490059.asia-southeast2.run.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -117,9 +150,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
     }
 
+    private fun displayProfileImage() {
+        val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val imageUriString = sharedPreferences.getString("profile_image_uri", null)
+
+        imageUriString?.let {
+            val imageUri = Uri.parse(it)
+            binding?.profileImageView?.setImageURI(imageUri)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
 }
-

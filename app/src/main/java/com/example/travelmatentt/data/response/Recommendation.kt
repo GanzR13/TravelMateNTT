@@ -1,4 +1,4 @@
-package com.example.travelmatentt.fragment
+package com.example.travelmatentt.data.response
 
 data class Recommendation(
     val destinasi_wisata_id: String,

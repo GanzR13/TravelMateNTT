@@ -3,6 +3,8 @@ package com.example.travelmatentt.view.main
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -14,11 +16,26 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        mainViewModel.userLoggedIn.observe(this, Observer { isLoggedIn ->
+            if (isLoggedIn) {
+                Log.d("MainActivity", "User is logged in")
+            } else {
+                Log.d("MainActivity", "User is not logged in")
+            }
+        })
+
+        mainViewModel.userName.observe(this, Observer { name ->
+            Log.d("MainActivity", "User's name is: $name")
+        })
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -38,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         finishAffinity()
     }
-
 }
 
 

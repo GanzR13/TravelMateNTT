@@ -8,6 +8,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.travelmatentt.data.request.RegisterRequest
 import com.example.travelmatentt.data.retrofit.ApiConfig
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var registerViewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,21 +29,15 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
-        setupClickListener()
-    }
+        // Inisialisasi ViewModel
+        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
+        // Observasi status pendaftaran
+        registerViewModel.registrationStatus.observe(this, Observer { status ->
+            Toast.makeText(this, status, Toast.LENGTH_SHORT).show()
+        })
+
+        setupClickListener()
     }
 
     private fun setupClickListener() {
@@ -55,82 +52,12 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.edRegisterPassword.text.toString()
             val confirmPassword = binding.edConfirmRegisterPassword.text.toString()
 
-            if (validateInput(username, email, password, confirmPassword)) {
-                registerUser(username, email, password, confirmPassword)
+            // Validasi input dan jika valid, daftarkan pengguna
+            if (registerViewModel.validateInput(username, email, password, confirmPassword)) {
+                registerViewModel.registerUser(username, email, password, confirmPassword)
             }
         }
     }
-
-    private fun validateInput(
-        username: String,
-        email: String,
-        password: String,
-        confirmPassword: String
-    ): Boolean {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Invalid email format!", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if (username.length < 3) {
-            Toast.makeText(this, "Username must be at least 3 characters!", Toast.LENGTH_SHORT)
-                .show()
-            return false
-        }
-
-        if (password.length < 6) {
-            Toast.makeText(this, "Password must be at least 6 characters!", Toast.LENGTH_SHORT)
-                .show()
-            return false
-        }
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if (password != confirmPassword) {
-            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
-    }
-
-    private fun registerUser(username: String, email: String, password: String, confirmPassword: String) {
-        lifecycleScope.launch {
-            try {
-
-                val apiService = ApiConfig.getApiService()
-                val registerRequest = RegisterRequest(username, email, password, confirmPassword)
-                val response = apiService.register(registerRequest)
-
-                if (response.message == "User registered successfully") {
-                    Toast.makeText(
-                        this@RegisterActivity,
-                        "Registration successful!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-
-                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-
-                    Toast.makeText(
-                        this@RegisterActivity,
-                        "Registration failed: ${response.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } catch (e: Exception) {
-
-                Toast.makeText(
-                    this@RegisterActivity,
-                    "An error occurred: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {

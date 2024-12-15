@@ -1,7 +1,6 @@
 plugins {
     id ("com.android.application")
     id ("kotlin-android")
-    id ("kotlin-kapt")  // Menambahkan plugin kapt
 }
 
 android {
@@ -58,21 +57,18 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-storage:21.0.1")  // Pastikan versinya sesuai dengan yang terbaru
-    implementation("com.google.firebase:firebase-auth:21.0.1")
-    implementation("com.squareup.picasso:picasso:2.71828")
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.auth)
+    implementation(libs.picasso)
+    implementation(libs.okhttp)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.glide)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.vertexai)
-    implementation(libs.play.services.location)  // Glide untuk memuat gambar
-    kapt("com.github.bumptech.glide:compiler:4.15.1")  // Gunakan kapt untuk Kotlin
-    implementation("com.google.android.material:material:1.8.0")
+    implementation(libs.play.services.location)
+    implementation(libs.material.v180)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -99,6 +95,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
-    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation (libs.androidx.cardview)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.yalantis.ucrop)
 }

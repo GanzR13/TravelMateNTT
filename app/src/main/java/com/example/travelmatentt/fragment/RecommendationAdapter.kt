@@ -6,12 +6,15 @@ import com.bumptech.glide.Glide
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelmatentt.data.response.Recommendation
 import com.example.travelmatentt.databinding.ItemRecommendationBinding
 
 
 class RecommendationAdapter(
     private val onClick: (Recommendation) -> Unit
-) : ListAdapter<Recommendation, RecommendationAdapter.RecommendationViewHolder>(RecommendationDiffCallback()) {
+) : ListAdapter<Recommendation, RecommendationAdapter.RecommendationViewHolder>(
+    RecommendationDiffCallback()
+) {
     class RecommendationDiffCallback : DiffUtil.ItemCallback<Recommendation>() {
         override fun areItemsTheSame(oldItem: Recommendation, newItem: Recommendation): Boolean {
             return oldItem.destinasi_wisata_id == newItem.destinasi_wisata_id
@@ -21,8 +24,10 @@ class RecommendationAdapter(
             return oldItem == newItem
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendationViewHolder {
-        val binding = ItemRecommendationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemRecommendationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecommendationViewHolder(binding)
     }
 
@@ -31,7 +36,8 @@ class RecommendationAdapter(
         holder.bind(recommendation)
     }
 
-    inner class RecommendationViewHolder(private val binding: ItemRecommendationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RecommendationViewHolder(private val binding: ItemRecommendationBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(recommendation: Recommendation) {
             binding.tvDestinationName.text = recommendation.nama_objek
             binding.tvDescription.text = recommendation.deskripsi
@@ -46,5 +52,4 @@ class RecommendationAdapter(
             }
         }
     }
-
 }

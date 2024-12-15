@@ -4,18 +4,16 @@ import com.example.travelmatentt.data.request.LoginRequest
 import com.example.travelmatentt.data.request.RegisterRequest
 import com.example.travelmatentt.data.response.LoginResponse
 import com.example.travelmatentt.data.response.RegisterResponse
+import com.example.travelmatentt.data.response.UserResponse
 import com.example.travelmatentt.fragment.DeleteResponse
-import com.example.travelmatentt.fragment.DestinationRecommendation
 import com.example.travelmatentt.fragment.DestinationResponse
-import com.example.travelmatentt.fragment.HotelRecommendation
 import com.example.travelmatentt.fragment.RecommendationResponse
 import com.example.travelmatentt.fragment.ResponseStory
 import com.example.travelmatentt.fragment.Story
 import com.example.travelmatentt.fragment.StoryRequest
-
 import com.example.travelmatentt.fragment.WishlistItem
 import com.example.travelmatentt.model.WishlistRequest
-import com.example.travelmatentt.model.WishlistResponse
+import com.example.travelmatentt.fragment.WishlistResponse
 import com.example.travelmatentt.view.assessment.AssessmentRequest
 import com.example.travelmatentt.view.assessment.AssessmentResponse
 import retrofit2.Call
@@ -25,10 +23,13 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
-
 
 interface ApiService {
+
+    @GET("user")
+    fun getUser(
+        @Header("Authorization") token: String
+    ): Call<UserResponse>
 
     @POST("register")
     suspend fun register(
@@ -44,11 +45,11 @@ interface ApiService {
     fun submitAssessment(@Body assessmentRequest: AssessmentRequest): Call<AssessmentResponse>
 
     @GET("recommend-destinations")
-    fun getDestinationRecommendations(@Header("Authorization") token: String): Call<RecommendationResponse>
+    fun getDestinationRecommendations(@Header("Authorization") token: String)
+    : Call<RecommendationResponse>
 
     @GET("stories")
     fun getStory(@Header("Authorization") token: String): Call<List<Story>>
-
 
     @POST("/stories")
     fun createStory(
@@ -65,25 +66,21 @@ interface ApiService {
         @Body wishlistRequest: WishlistRequest
     ): Call<WishlistResponse>
 
-    @GET("google")
-    fun googleLogin(): Call<GoogleLoginResponse>
-
     @DELETE("wishlist/{id}")
     fun deleteWishlistItem(
         @Header("Authorization") token: String,
         @Path("id") wishlistId: String
     ): Call<DeleteResponse>
 
-
     @GET("destinations/{jenis}")
     fun getDestinations(
         @Header("Authorization") token: String,
         @Path("jenis") jenis: String
     ): Call<List<DestinationResponse>>
+
     @GET("similar-destinations/{namaObjek}")
     fun getSimilarDestinations(
         @Header("Authorization") token: String,
         @Path("namaObjek") namaObjek: String
     ): Call<DestinationResponse>}
-data class GoogleLoginResponse(val message: String)
 

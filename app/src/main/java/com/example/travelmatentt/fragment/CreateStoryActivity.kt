@@ -11,7 +11,7 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.travelmatentt.R
-import com.example.travelmatentt.fragment.RetrofitClient
+import com.example.travelmatentt.data.retrofit.RetrofitClient
 import com.example.travelmatentt.fragment.ResponseStory
 import com.example.travelmatentt.fragment.StoryRequest
 import com.google.firebase.FirebaseApp

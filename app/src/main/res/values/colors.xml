@@ -15,4 +15,5 @@
     <color name="red">#FF0000</color>
     <color name="pink">#FF00FF</color>
     <color name="primary">#3F51B5</color>
+    <color name="dark">#252526</color>
 </resources>

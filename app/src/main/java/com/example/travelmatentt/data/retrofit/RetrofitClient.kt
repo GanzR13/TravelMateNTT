@@ -1,6 +1,5 @@
-package com.example.travelmatentt.fragment
+package com.example.travelmatentt.data.retrofit
 
-import com.example.travelmatentt.data.retrofit.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
